@@ -28,29 +28,35 @@ class UserProductsScreen extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Consumer<Products>(
-          builder: (ctx, product, _) => ListView.builder(
-            itemCount: product.items.length,
-            itemBuilder: (ctx, i) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Column(
-                  children: [
-                    UserProductItem(
-                      id: product.items[i].id,
-                      title: product.items[i].title,
-                      imageUrl: product.items[i].imageUrl,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Divider(),
-                    ),
-                  ],
-                ),
-              );
-            },
+      body: RefreshIndicator(
+        onRefresh: () => Provider.of<Products>(
+          context,
+          listen: false,
+        ).fetchProducts(),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Consumer<Products>(
+            builder: (ctx, products, _) => ListView.builder(
+              itemCount: products.items.length,
+              itemBuilder: (ctx, i) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Column(
+                    children: [
+                      UserProductItem(
+                        id: products.items[i].id,
+                        title: products.items[i].title,
+                        imageUrl: products.items[i].imageUrl,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Divider(),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
