@@ -44,14 +44,14 @@ class UserProductItem extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.delete),
               color: Theme.of(context).errorColor,
-              onPressed: () {
+              onPressed: () async {
                 try {
-                  Provider.of<Products>(context, listen: false)
+                  await Provider.of<Products>(context, listen: false)
                       .deleteProduct(id);
                 } catch (error) {
                   snack.showSnackBar(
                     SnackBar(
-                      content: Text('Deleting failed'),
+                      content: Text('$error'),
                     ),
                   );
                 }

@@ -179,7 +179,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         },
                         onSaved: (value) {
                           _editedProduct.title = value;
-                          _formState.currentState.validate();
                         },
                       ),
                       TextFormField(
